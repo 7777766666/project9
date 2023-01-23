@@ -42,10 +42,8 @@ public class HistoryServiceImpl implements HistoryService {
      * @return {@link HistoryDto}.
      */
     public HistoryDto findById(Long id) {
-        return historyMapper.toDto(historyRepository.findById(id)
-                .orElseThrow(
-                        () -> new EntityNotFoundException(MESSAGE + id))
-        );
+        final HistoryEntity history = checkNull(id);
+        return historyMapper.toDto(history);
     }
 
     /**
@@ -56,11 +54,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     @Transactional
     public HistoryDto update(Long id, HistoryDto history) {
-        final HistoryEntity historyEntity = historyRepository.findById(id)
-                .orElseThrow(
-                        () -> new EntityNotFoundException(MESSAGE + id)
-                );
-
+        final HistoryEntity historyEntity = checkNull(id);
         return historyMapper.toDto(historyMapper.mergeToEntity(history, historyEntity));
     }
 
@@ -71,12 +65,24 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public List<HistoryDto> findAllById(List<Long> ids) {
         // TODO в 74 строке напиши стрим по кодстайлу.
-        final List<HistoryEntity> histories = ids.stream().map(id -> historyRepository.findById(id)
+        final List<HistoryEntity> histories = ids.stream()
+                .map(id -> historyRepository.findById(id)
                 //TODO логика с выбросом EntityNotFoundException дублируется, вынеси в приватный метод и переиспользуй.
                         .orElseThrow(
                                 () -> new EntityNotFoundException(MESSAGE + id)))
                 .collect(Collectors.toList());
 
         return historyConverter.toListDto(histories);
+    }
+
+    /**
+     * @param id технический идентификатор {@link HistoryEntity}.
+     * @return {@link HistoryEntity}.
+     */
+    private HistoryEntity checkNull(Long id) {
+        return historyRepository.findById(id)
+                .orElseThrow(
+                        () -> new EntityNotFoundException(MESSAGE + id)
+                );
     }
 }
