@@ -2,7 +2,6 @@ package com.bank.history.controller;
 
 import com.bank.history.dto.HistoryDto;
 import com.bank.history.entity.HistoryEntity;
-import com.bank.history.repository.HistoryRepository;
 import com.bank.history.service.HistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HistoryController {
 
-    private final HistoryService historyService;
-    private final HistoryRepository historyRepository;
+    private final HistoryService service;
 
     /**
      * @param ids технические идентификаторы {@link HistoryEntity}.
@@ -32,7 +30,7 @@ public class HistoryController {
      */
     @GetMapping
     public ResponseEntity<List<HistoryDto>> readAll(@RequestParam("ids") List<Long> ids) {
-        return ResponseEntity.ok(historyService.findAllById(ids));
+        return ResponseEntity.ok(service.findAllById(ids));
     }
 
     /**
@@ -41,17 +39,16 @@ public class HistoryController {
      */
     @GetMapping(path = "/{id}")
     public ResponseEntity<HistoryDto> read(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(historyService.findById(id));
+        return ResponseEntity.ok(service.findById(id));
     }
 
     /**
      * @param history {@link HistoryDto}.
      * @return {@link ResponseEntity} c {@link HistoryDto}.
      */
-
     @PostMapping(path = "/create")
     public ResponseEntity<HistoryDto> create(@RequestBody HistoryDto history) {
-        return ResponseEntity.ok(historyService.create(history));
+        return ResponseEntity.ok(service.create(history));
     }
 
     /**
@@ -61,6 +58,6 @@ public class HistoryController {
      */
     @PutMapping(path = "/{id}")
     public ResponseEntity<HistoryDto> update(@PathVariable("id") Long id, @RequestBody HistoryDto history) {
-        return ResponseEntity.ok(historyService.update(id, history));
+        return ResponseEntity.ok(service.update(id, history));
     }
 }

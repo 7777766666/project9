@@ -6,7 +6,7 @@ import com.bank.history.entity.HistoryEntity;
 import java.util.List;
 
 /**
- * сервис для {@link HistoryEntity} и {@link HistoryDto}.
+ * Сервис для {@link HistoryEntity} и {@link HistoryDto}.
  */
 
 public interface HistoryService {
@@ -24,7 +24,7 @@ public interface HistoryService {
     HistoryDto findById(Long id);
 
     /**
-     * @param id технический идентификатор принимаем {@link HistoryEntity}.
+     * @param id технический идентификатор {@link HistoryEntity}.
      * @param history {@link HistoryDto}.
      * @return {@link HistoryDto}.
      */

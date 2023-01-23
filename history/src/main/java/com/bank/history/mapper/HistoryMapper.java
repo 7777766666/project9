@@ -7,20 +7,20 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 /**
- * Маппер {@link HistoryEntity} в {@link HistoryDto}.
+ * Маппер {@link HistoryEntity} и {@link HistoryDto}.
  */
 @Mapper(componentModel = "spring")
 public interface HistoryMapper {
 
     /**
-     * @param history принимаем {@link HistoryDto}.
+     * @param history {@link HistoryDto}.
      * @return {@link HistoryEntity}.
      */
     @Mapping(target = "id", ignore = true)
     HistoryEntity toEntity(HistoryDto history);
 
     /**
-     * @param history принимаем {@link HistoryEntity}.
+     * @param history {@link HistoryEntity}.
      * @return {@link HistoryDto}.
      */
     HistoryDto toDto(HistoryEntity history);

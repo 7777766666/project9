@@ -13,7 +13,7 @@ import javax.persistence.EntityNotFoundException;
 public class HistoryExceptionHandler {
 
     /**
-     * @param e Принимаем исключение из {@link EntityNotFoundException}.
+     * @param e {@link EntityNotFoundException}.
      * @return {@link ResponseEntity} сообщение и HttpStatus.NOT_FOUND.
      */
     @ExceptionHandler(EntityNotFoundException.class)

@@ -1,9 +1,8 @@
 package com.bank.history.converter;
 
-import com.bank.history.mapper.HistoryMapper;
 import com.bank.history.dto.HistoryDto;
 import com.bank.history.entity.HistoryEntity;
-import com.bank.history.repository.HistoryRepository;
+import com.bank.history.mapper.HistoryMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -13,15 +12,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Для конвертации листа {@link HistoryEntity} в лист {@link HistoryDto}.
+ * лист {@link HistoryEntity} в лист {@link HistoryDto}.
  */
 @Getter
 @Setter
 @Component
 @RequiredArgsConstructor
 public class HistoryConverter {
-
-    private final HistoryRepository historyRepository;
 
     private final HistoryMapper historyMapper;
 

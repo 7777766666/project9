@@ -26,8 +26,8 @@ public class HistoryServiceImpl implements HistoryService {
     private final HistoryConverter historyConverter;
 
     /**
-     * @param {@link HistoryDto}.
-     * @return historyDto {@link HistoryDto}.
+     * @param history {@link HistoryDto}.
+     * @return {@link HistoryDto}.
      */
     @Override
     @Transactional
@@ -49,14 +49,14 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     /**
-     * @param id лист технических идентификаторов {@link HistoryDto}.
+     * @param id технический идентификатор {@link HistoryEntity}.
      * @param history {@link HistoryDto}.
      * @return лист {@link HistoryDto}.
      */
     @Override
     @Transactional
     public HistoryDto update(Long id, HistoryDto history) {
-        HistoryEntity historyEntity = historyRepository.findById(id)
+        final HistoryEntity historyEntity = historyRepository.findById(id)
                 .orElseThrow(
                         () -> new EntityNotFoundException(MESSAGE + id)
                 );
@@ -70,7 +70,9 @@ public class HistoryServiceImpl implements HistoryService {
      */
     @Override
     public List<HistoryDto> findAllById(List<Long> ids) {
-        List<HistoryEntity> histories = ids.stream().map(id -> historyRepository.findById(id)
+        // TODO в 74 строке напиши стрим по кодстайлу.
+        final List<HistoryEntity> histories = ids.stream().map(id -> historyRepository.findById(id)
+                //TODO логика с выбросом EntityNotFoundException дублируется, вынеси в приватный метод и переиспользуй.
                         .orElseThrow(
                                 () -> new EntityNotFoundException(MESSAGE + id)))
                 .collect(Collectors.toList());
